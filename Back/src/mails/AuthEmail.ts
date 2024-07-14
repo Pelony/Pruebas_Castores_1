@@ -22,4 +22,18 @@ export class AuthEmail{
         })
         console.log('Mensaje Enviado', info.messageId)
     }
+    static sendPasswordReset = async ( user:IEmail ) =>{
+        const info = await transporter.sendMail({
+            from: 'jonathanAndrade<admin@andrade.com>',
+            to: user.email,
+            subject: 'Restablece',
+            text:'Restablece',
+            html: `<p>Hola: ${user.name}, has solicitado recuperar tu contraseña</p>
+            <p>Visita el siguiente enlace:</p>
+            <a href="${process.env.FRONTEND_URL}/auth/new-password">Restablece contraseña</a>
+            
+        `
+        })
+        console.log('Mensaje Enviado', info.messageId)
+    }
 }
