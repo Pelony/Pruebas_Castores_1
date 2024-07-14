@@ -3,7 +3,7 @@ import { UserLoginForm } from "@/types/index";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthUser } from "@/api/AuthAPI";
 
 export default function LoginView() {
@@ -14,12 +14,14 @@ export default function LoginView() {
   }
   const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
 
+  const navigate = useNavigate()
   const {mutate} = useMutation({mutationFn:AuthUser,
     onError: (error)=>{
       toast.error(error.message)
     },
     onSuccess:(data)=>{
       toast.success('Iniciando Sesion')
+      navigate('/')
     }
   })
 
